@@ -60,20 +60,20 @@ const SceneCard = ({ index, scene, onUpdate, onRemove }: SceneCardProps) => {
           />
         </div>
         <div>
-          <Label htmlFor={`imageUrl-${index}`}>Image URL</Label>
+          <Label htmlFor={`imageUrl-${index}`}>Image URL (Optional)</Label>
           <Input
             id={`imageUrl-${index}`}
-            value={localScene.imageUrl}
+            value={localScene.imageUrl || ""}
             onChange={(e) => handleChange("imageUrl", e.target.value)}
             className="mt-1"
             placeholder="https://example.com/image.jpg"
           />
         </div>
         <div>
-          <Label htmlFor={`audioUrl-${index}`}>Audio URL</Label>
+          <Label htmlFor={`audioUrl-${index}`}>Audio URL (Optional)</Label>
           <Input
             id={`audioUrl-${index}`}
-            value={localScene.audioUrl}
+            value={localScene.audioUrl || ""}
             onChange={(e) => handleChange("audioUrl", e.target.value)}
             className="mt-1"
             placeholder="https://example.com/audio.mp3"

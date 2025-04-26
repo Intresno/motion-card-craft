@@ -1,9 +1,8 @@
-
 export interface Scene {
   title: string;
   subtitle?: string;
-  imageUrl: string;
-  audioUrl: string;
+  imageUrl?: string;
+  audioUrl?: string;
   duration?: number;
 }
 

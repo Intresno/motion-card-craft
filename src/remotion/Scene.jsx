@@ -46,14 +46,20 @@ export const Scene = ({ title, subtitle, imageUrl, audioUrl, duration = 5 }) => 
 
   return (
     <AbsoluteFill style={{ backgroundColor: '#000' }}>
-      {/* Background image */}
-      {imageUrl && (
+      {/* Background image - now optional */}
+      {imageUrl ? (
         <Img
           src={imageUrl}
           style={{
             width: '100%',
             height: '100%',
             objectFit: 'cover',
+          }}
+        />
+      ) : (
+        <AbsoluteFill
+          style={{
+            background: 'linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%)',
           }}
         />
       )}
@@ -106,7 +112,7 @@ export const Scene = ({ title, subtitle, imageUrl, audioUrl, duration = 5 }) => 
         )}
       </AbsoluteFill>
       
-      {/* Audio */}
+      {/* Audio - now optional */}
       {audioUrl && audioLoaded && <Audio src={audioUrl} />}
     </AbsoluteFill>
   );
