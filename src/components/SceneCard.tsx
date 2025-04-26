@@ -3,6 +3,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Trash2 } from "lucide-react";
 
 interface SceneCardProps {
@@ -10,8 +11,8 @@ interface SceneCardProps {
   scene: {
     title: string;
     subtitle?: string;
-    imageUrl: string;
-    audioUrl: string;
+    imageUrl?: string;
+    audioUrl?: string;
     duration?: number;
   };
   onUpdate: (index: number, scene: any) => void;
@@ -20,6 +21,7 @@ interface SceneCardProps {
 
 const SceneCard = ({ index, scene, onUpdate, onRemove }: SceneCardProps) => {
   const [localScene, setLocalScene] = useState({ ...scene });
+  const [syncWithAudio, setSyncWithAudio] = useState(false);
 
   useEffect(() => {
     setLocalScene({ ...scene });
@@ -79,19 +81,37 @@ const SceneCard = ({ index, scene, onUpdate, onRemove }: SceneCardProps) => {
             placeholder="https://example.com/audio.mp3"
           />
         </div>
-        <div>
-          <Label htmlFor={`duration-${index}`}>Duration (seconds)</Label>
-          <Input
-            id={`duration-${index}`}
-            type="number"
-            value={localScene.duration || 0}
-            onChange={(e) => handleChange("duration", parseFloat(e.target.value))}
-            className="mt-1"
-          />
-          <p className="text-xs text-muted-foreground mt-1">
-            Will be auto-calculated from audio when rendering
-          </p>
+        <div className="flex items-center space-x-4">
+          <div className="flex-1">
+            <Label htmlFor={`duration-${index}`}>Duration (seconds)</Label>
+            <Input
+              id={`duration-${index}`}
+              type="number"
+              value={localScene.duration || 0}
+              onChange={(e) => handleChange("duration", parseFloat(e.target.value))}
+              className="mt-1"
+              disabled={syncWithAudio && localScene.audioUrl}
+            />
+          </div>
+          <div className="flex items-center space-x-2 pt-6">
+            <Checkbox
+              id={`sync-audio-${index}`}
+              checked={syncWithAudio}
+              onCheckedChange={(checked) => {
+                setSyncWithAudio(checked === true);
+                if (checked && localScene.audioUrl) {
+                  handleChange("duration", undefined);
+                }
+              }}
+            />
+            <Label htmlFor={`sync-audio-${index}`}>Sync with audio duration</Label>
+          </div>
         </div>
+        <p className="text-xs text-muted-foreground mt-1">
+          {syncWithAudio
+            ? "Duration will be calculated from audio length"
+            : "Set custom duration in seconds"}
+        </p>
       </CardContent>
       <CardFooter className="flex justify-between pt-0">
         {localScene.imageUrl && (
