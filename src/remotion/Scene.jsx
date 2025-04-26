@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { AbsoluteFill, Img, useCurrentFrame, useVideoConfig, Audio, spring, interpolate } from 'remotion';
 
-export const Scene = ({ title, imageUrl, audioUrl, duration = 5 }) => {
+export const Scene = ({ title, subtitle, imageUrl, audioUrl, duration = 5 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const [audioLoaded, setAudioLoaded] = useState(false);
@@ -65,7 +65,7 @@ export const Scene = ({ title, imageUrl, audioUrl, duration = 5 }) => {
         }}
       />
       
-      {/* Title text */}
+      {/* Title and subtitle text */}
       <AbsoluteFill
         style={{
           display: 'flex',
@@ -89,6 +89,21 @@ export const Scene = ({ title, imageUrl, audioUrl, duration = 5 }) => {
         >
           {title}
         </div>
+        {subtitle && (
+          <div
+            style={{
+              fontSize: '32px',
+              color: 'white',
+              textAlign: 'center',
+              padding: '20px 50px 0',
+              textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)',
+              fontFamily: 'Arial, sans-serif',
+              opacity: 0.9,
+            }}
+          >
+            {subtitle}
+          </div>
+        )}
       </AbsoluteFill>
       
       {/* Audio */}

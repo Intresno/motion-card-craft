@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,6 +9,7 @@ interface SceneCardProps {
   index: number;
   scene: {
     title: string;
+    subtitle?: string;
     imageUrl: string;
     audioUrl: string;
     duration?: number;
@@ -47,6 +47,16 @@ const SceneCard = ({ index, scene, onUpdate, onRemove }: SceneCardProps) => {
             value={localScene.title}
             onChange={(e) => handleChange("title", e.target.value)}
             className="mt-1"
+          />
+        </div>
+        <div>
+          <Label htmlFor={`subtitle-${index}`}>Subtitle (Optional)</Label>
+          <Input
+            id={`subtitle-${index}`}
+            value={localScene.subtitle || ""}
+            onChange={(e) => handleChange("subtitle", e.target.value)}
+            className="mt-1"
+            placeholder="Add a subtitle (optional)"
           />
         </div>
         <div>
